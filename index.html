@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎓 Invitación de Graduación</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom right, #e7a3e2, #accdff);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .gift-box {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      background: linear-gradient(145deg, #ffb3e6, #cce6ff);
+      border-radius: 5px;
+      box-shadow: 0 8px 30px rgba(255, 182, 255, 0.10);
+      cursor: pointer;
+      animation: float 2s ease-in-out infinite;
+      transition: transform 0.5s ease;
+    }
+
+    .gift-lid {
+      position: absolute;
+      top: -30px;
+      left: 0;
+      width: 105%;
+      height: 40px;
+      background:  #ff66cc;
+      border-radius: 4px 4px 5px 5px;
+      transition: transform 1s ease;
+      z-index: 2;
+    }
+
+    .gift-ribbon {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 40px;
+      height: 100%;
+      background: #ff66cc;
+      transform: translateX(-50%);
+    }
+
+
+    .bubble {
+      position: absolute;
+      top: -30px;
+      left: 10%;
+      transform: translateX(-50%);
+      background: #fff0fb;
+      padding: 20px 40px;
+      border-radius: 30px;
+      font-weight: bold;
+      color: #970051;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      animation: bounceText 2s infinite ease-in-out;
+      z-index: 20;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    @keyframes bounceText {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    .invite-card {
+      margin-top: 8px;
+      width: 90%;
+      max-width: 450px;
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 0 25px rgba(255, 133, 255, 0.8);
+      display: none;
+      opacity: 1;
+      transform: scale(0.10);
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    a {
+      color: #ff69b4;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ff69b4;
+      border-radius: 50%;
+      animation: fall 2s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(600px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="gift-box" id="giftBox" onclick="openGift()">
+    <div class="gift-lid" id="giftLid"></div>
+    <div class="gift-ribbon"></div>
+    <div class="bubble" id="bubble">¡Abre el regalo!</div>
+  </div>
+
+  <div class="invite-card" id="invite">
+    <h2 style="color: #ff69b4;">🎓 Invitación de Graduación</h2>
+    <p><strong>Motivo:</strong> Mi Graduación</p>
+    <p><strong>Fecha:</strong> Sábado 21 de Junio, 6:00 PM</p>
+    <p><strong>Lugar:</strong> Quinta Gardenias</p>
+    <p><strong>Ubicación:</strong><br>
+      <a href="https://www.google.com.mx/maps/place/Quinta+Gardenias/@25.559797,-100.0204715,17.5z/data=!4m6!3m5!1s0x8662db75b1d45909:0x260ae2a19ae3fe1f!8m2!3d25.5584535!4d-100.0189688!16s%2Fg%2F11rz5bq7mr?entry=ttu&g_ep=EgoyMDI1MDQyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank">Ver en Google Maps</a>
+    </p>
+  </div>
+
+  <script>
+    function openGift() {
+      const lid = document.getElementById('giftLid');
+      const bubble = document.getElementById('bubble');
+      const box = document.getElementById('giftBox');
+      const invite = document.getElementById('invite');
+
+      lid.style.transform = 'rotateX(100deg)';
+      bubble.style.display = 'none';
+      box.style.animation = 'none';
+
+      generateConfetti();
+
+      setTimeout(() => {
+        invite.style.display = 'block';
+        invite.classList.add('show-invite');
+      }, 800);
+    }
+
+    function generateConfetti() {
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor = ['#ff66cc', '#66ccff', '#ffc0cb'][Math.floor(Math.random() * 3)];
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        confetti.style.animationDelay = Math.random() + 's';
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 4000);
+      }
+    }
+  </script>
+</body>
+</html>
